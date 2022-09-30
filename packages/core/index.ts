@@ -401,10 +401,14 @@ export async function buildProject(
           )
 
           if (platform() === 'darwin') {
+            let arch = process.arch;
+            if (arch === "arm64") {
+              arch = "aarch64";
+            }
             return [
               join(
                 artifactsPath,
-                `bundle/dmg/${fileAppName}_${app.version}_${process.arch}.dmg`
+                `bundle/dmg/${fileAppName}_${app.version}_${arch}.dmg`
               ),
               join(artifactsPath, `bundle/macos/${fileAppName}.app`),
               join(artifactsPath, `bundle/macos/${fileAppName}.app.tar.gz`),
